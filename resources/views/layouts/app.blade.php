@@ -19,7 +19,7 @@
                 <a class="nav-link text-white" href="{{route('shows.index')}}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="#">Search for Episodes / TV Shows</a>
+            <a class="nav-link text-white" href="#" data-toggle="modal" data-target="#searchModal">Search for Episodes / TV Shows</a>
             </li>
             <li class="dropdown">
     <a href="#" class="nav-item dropdown-toggle nav-link text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catigories</a>
@@ -74,6 +74,27 @@
 </nav>
 
 
+<script>
+    $(document).ready(function () {
+        $('#searchForm').submit(function (event) {
+            event.preventDefault(); // يمنع إعادة تحميل الصفحة عند تقديم النموذج
+
+            var query = $('#searchInput').val(); // الاستعلام المدخل
+
+            $.ajax({
+                url: '/search', // المسار لمعالجة البحث
+                method: 'GET',
+                data: { query: query }, // بيانات الاستعلام
+                success: function (response) {
+                    $('#searchResults').html(response); // عرض البيانات في المودال
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
 
     @yield('content')
 
@@ -88,3 +109,31 @@
 
 </body>
 </html>
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">Search for Episodes / TV Shows</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{ route('search.results') }}" method="GET">
+    <div class="form-group">
+        <input type="text" class="form-control" name="query" placeholder="Enter search query">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+                <div id="searchResults"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

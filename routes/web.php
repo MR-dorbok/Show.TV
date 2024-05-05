@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use App\Models\Show;
 use App\Models\Episode;
+use App\Http\Controllers\SearchController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,9 @@ use App\Models\Episode;
 |
 */
 
+
+
+Route::get('/search', [SearchController::class, 'search'])->name('search.results');
 
 
 // عرض الأقسام

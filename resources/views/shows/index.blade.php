@@ -1,8 +1,5 @@
-<!-- resources/views/shows.blade.php -->
 @extends('layouts.app')
 
-
-   
 @section('content')
 <body style="background-color:#000;color:#fff">
 <div class="container">
@@ -34,6 +31,9 @@
             @endif
         @endforeach
     </div>
+
+ 
+
 </div>
-@endsection
 </body>
+@endsection
